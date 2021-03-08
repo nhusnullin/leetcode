@@ -25,6 +25,11 @@ namespace Project
             this.next = next;
         }
 
+        public ListNode(int[] values, ListNode next = null):this(values)
+        {
+            Tail.next = next;
+        }
+        
         public ListNode(int[] values):this()
         {
             var prev = this;
@@ -42,6 +47,21 @@ namespace Project
             }
         }
 
+        public ListNode Tail
+        {
+            get
+            {
+                var node = this;
+                while (node.next != null)
+                {
+                    node = node.next;
+                }
+
+                return node;
+            }
+        }
+        
+        
         public override string ToString()
         {
             return ToString(this, new StringBuilder()).ToString().Trim();
