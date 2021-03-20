@@ -9,11 +9,40 @@ namespace Project.easy
         [TestCase(new[] {1, 2}, false)]
         public void Test(int[] list, bool result)
         {
+            // Assert.AreEqual(result, IsPalindrome(new ListNode(list)));
             Assert.AreEqual(result, IsPalindrome(new ListNode(list)));
         }
 
+        [Test]
+        public void TestOnNUll()
+        {
+            Assert.AreEqual(false, IsPalindrome(null));
+        }
+        
+        ListNode curHead;
 
         public bool IsPalindrome(ListNode head)
+        {
+            if(head == null)
+            {
+                return false;
+            }
+            curHead = new ListNode(0,head);
+            return IsPalindromeDeep(head);
+        }
+
+        public bool IsPalindromeDeep(ListNode head)
+        {
+            if (head == null) return true;
+
+            if (!IsPalindromeDeep(head.next)) return false;
+
+            curHead = curHead.next;
+            return curHead.val == head.val;
+        }
+
+
+        public bool IsPalindromeIterate(ListNode head)
         {
             if (head == null)
             {
@@ -45,7 +74,6 @@ namespace Project.easy
             }
 
             return true;
-            
         }
 
 
