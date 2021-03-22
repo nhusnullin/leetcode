@@ -44,7 +44,6 @@ namespace Project.easy
         public int[] SortedSquares2(int[] nums)
         {
             var res = new int[nums.Length];
-            var r = 0;
 
             var j = 0;
             for (j = 0; j < nums.Length; j++)

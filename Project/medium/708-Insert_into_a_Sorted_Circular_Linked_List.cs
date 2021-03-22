@@ -13,6 +13,7 @@ namespace Project.medium
         [TestCase(new[]{5,6}, 5, "5 5 6")]
         [TestCase(new[]{3,4,1}, 2, "3 4 1 2")]
         [TestCase(new []{3,5,1}, 0, "3 5 0 1")]
+        [TestCase(new[]{1}, 2, "1 2")]
         public void Test(int[] val, int insertVal, string exp)
         {
             var head = new Node(val);
