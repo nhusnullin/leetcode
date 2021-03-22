@@ -1,67 +1,8 @@
-using System;
-using System.Linq;
 using System.Text;
 using NUnit.Framework;
 
 namespace Project.medium
 {
-    public class Node
-    {
-        public int val;
-        public Node prev;
-        public Node next;
-        public Node child;
-
-        public Node(params int[] val)
-        {
-            this.val = val[0];
-            var prev = this;
-            for (var i = 1; i < val.Length; i++)
-            {
-                var node = new Node(val[i]);
-                prev.next = node;
-                node.prev = prev;
-                prev = node;
-            }
-        }
-
-        public Node(int val)
-        {
-            this.val = val;
-        }
-
-        public override string ToString()
-        {
-            var str = new StringBuilder();
-            var node = this;
-            while (node != null)
-            {
-                str.Append($"{node.val} ");
-                node = node.next;
-            }
-
-            return str.ToString().TrimEnd();
-        }
-
-        public string ToStringFromTail()
-        {
-            var tail = this;
-            while (tail.next != null)
-            {
-                tail = tail.next;
-            }
-
-            var str = new StringBuilder();
-            while (tail != null)
-            {
-                str.Append($"{tail.val} ");
-                tail = tail.prev;
-            }
-
-            return str.ToString().Trim();
-        }
-    }
-
     public class Flatten_a_Multilevel_Doubly_Linked_List
     {
         [Test]
@@ -119,7 +60,7 @@ namespace Project.medium
 
                 tail = childHead;
                 childHead = childHead.next;
-            } 
+            }
 
             return tail;
         }
@@ -132,6 +73,70 @@ namespace Project.medium
             tail.next = next;
             if (next != null) next.prev = tail;
             return tail;
+        }
+
+        public class Node
+        {
+            public int val;
+            public Node prev;
+            public Node next;
+            public Node child;
+
+            public Node(int _val, Node _next)
+            {
+                val = _val;
+                next = _next;
+            }
+
+            public Node(params int[] val)
+            {
+                this.val = val[0];
+                var prev = this;
+                for (var i = 1; i < val.Length; i++)
+                {
+                    var node = new Node(val[i]);
+                    prev.next = node;
+                    node.prev = prev;
+                    prev = node;
+                }
+            }
+
+            public Node(int val)
+            {
+                this.val = val;
+                this.next = null;
+            }
+
+            public override string ToString()
+            {
+                var str = new StringBuilder();
+                var node = this;
+                while (node != null)
+                {
+                    str.Append($"{node.val} ");
+                    node = node.next;
+                }
+
+                return str.ToString().TrimEnd();
+            }
+
+            public string ToStringFromTail()
+            {
+                var tail = this;
+                while (tail.next != null)
+                {
+                    tail = tail.next;
+                }
+
+                var str = new StringBuilder();
+                while (tail != null)
+                {
+                    str.Append($"{tail.val} ");
+                    tail = tail.prev;
+                }
+
+                return str.ToString().Trim();
+            }
         }
     }
 }
