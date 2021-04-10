@@ -30,22 +30,20 @@ namespace Project.medium
                 return result;
             }
 
-            var stack = new Queue<TreeNode>();
-            stack.Enqueue(root);
-
-            while (stack.Count > 0)
+            var left = root;
+            var stack = new Stack<TreeNode>();
+            while (left != null)
             {
-                var node = stack.Dequeue();
-                result.Add(node.val);
-
-                if (node.left != null)
+                result.Add(left.val);
+                if (left.right != null)
                 {
-                    stack.Enqueue(node.left);
+                    stack.Push(left.right);
                 }
 
-                if (node.right != null)
+                left = left.left;
+                if (left == null && stack.Count > 0)
                 {
-                    stack.Enqueue(node.right);
+                    left = stack.Pop();
                 }
             }
 
