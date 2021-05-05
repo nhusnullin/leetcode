@@ -1,7 +1,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
+using Microsoft.VisualBasic;
 using NUnit.Framework;
+using Project.easy;
 
 namespace Project.medium
 {
@@ -76,6 +79,43 @@ namespace Project.medium
             this.val = val;
             this.left = left;
             this.right = right;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            var node = obj as TreeNode;
+            if (node == null)
+            {
+                return false;
+            }
+
+            return this.val == node.val;
+        }
+
+        public override string ToString()
+        {
+            var root = this;
+            var queue = new Queue<TreeNode>();
+            queue.Enqueue(root);
+            var builder = new StringBuilder();
+            while (queue.Any())
+            {
+                var node = queue.Dequeue();
+                if (node == null)
+                {
+                    continue;
+                }
+                builder.Append($"{node.val},");
+                queue.Enqueue(node.left);
+                queue.Enqueue(node.right);
+            }
+
+            return builder.ToString();
         }
 
         public TreeNode(params int?[] arr)

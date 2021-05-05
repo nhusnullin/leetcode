@@ -1,18 +1,56 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Xml;
 using NUnit.Framework;
 
 namespace Project.medium
 {
     public class Populating_Next_Right_Pointers_in_Each_Node
     {
-        [TestCase("-1,#,0,1,#,2,3,4,5,#,6,7,8,9,10,11,12,13,#", -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13)]
+        [TestCase("-1,#,0,1,#,2,3,4,5,#,6,7,8,9,10,11,12,13,#,", -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13)]
         public void Test(string exp, params int?[] arr)
         {
-            Connect(new Node(arr));
+            Assert.AreEqual(exp, Connect(new Node(arr)).ToString());
+            Assert.AreEqual(exp, ConnectMyVersion(new Node(arr)).ToString());
         }
 
+        // Approach 2: Using previously established next pointers
         public Node Connect(Node root)
+        {
+            if (root == null)
+            {
+                return null;
+            }
+
+            var leftNode = root;
+
+            while (leftNode.left != null)
+            {
+                var head = leftNode;
+                while (head != null)
+                {
+                    // connection 1
+                    head.left.next = head.right;
+
+                    // connection 2
+                    if (head.next != null)
+                    {
+                        head.right.next = head.next.left;
+                    }
+
+                    head = head.next;
+                }
+
+                leftNode = leftNode.left;
+            }
+
+            return root;
+        }
+
+
+        public Node ConnectMyVersion(Node root)
         {
             var queue = new Queue<Node>();
             if (root?.left != null) queue.Enqueue(root.left);
@@ -35,7 +73,6 @@ namespace Project.medium
                     if (prev.left != null) queue.Enqueue(prev.left);
                     if (prev.right != null) queue.Enqueue(prev.right);
                 }
-
             }
 
             return root;
@@ -96,6 +133,39 @@ namespace Project.medium
                     node.right = new Node(value.Value);
                     queue.Enqueue(node.right);
                 }
+            }
+
+            public override string ToString()
+            {
+                var root = this;
+                var sb = new StringBuilder();
+                
+                
+                while (root != null)
+                {
+                    var head = root;
+                    while (head!= null)
+                    {
+                        sb.Append($"{head.val},");
+                        head = head.next;
+                    }
+
+                    sb.Append("#,");
+                    while (root!= null)
+                    {
+                        var nextRoot = root.left ?? root.right;
+                        if (nextRoot != null)
+                        {
+                            root = nextRoot;
+                            break;
+                        }
+
+                        root = root.next;
+                    }
+                    
+                }
+
+                return sb.ToString();
             }
         }
     }

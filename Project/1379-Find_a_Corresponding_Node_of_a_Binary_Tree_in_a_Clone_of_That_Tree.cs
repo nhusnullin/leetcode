@@ -1,41 +1,42 @@
 using System.Collections.Generic;
 using NUnit.Framework;
+using Project.medium;
 
 namespace Project
 {
-    public class TreeNode
-    {
-        public int? val;
-        public TreeNode left;
-        public TreeNode right;
-
-        public TreeNode()
-        {
-            
-        }
-        
-        public TreeNode(int x)
-        {
-            val = x;
-        }
-        
-        public TreeNode(int?[] arr)
-        {
-            var queue = new Queue<TreeNode>(arr.Length);
-            queue.Enqueue(new TreeNode());
-            
-            foreach (var item in arr)
-            {
-                var node = queue.Dequeue();
-                node.val = item;
-                node.left = new TreeNode();
-                node.right = new TreeNode();
-                
-                queue.Enqueue(node.left);
-                queue.Enqueue(node.right);
-            }
-        }
-    }
+    // public class TreeNode
+    // {
+    //     public int? val;
+    //     public TreeNode left;
+    //     public TreeNode right;
+    //
+    //     public TreeNode()
+    //     {
+    //         
+    //     }
+    //     
+    //     public TreeNode(int x)
+    //     {
+    //         val = x;
+    //     }
+    //     
+    //     public TreeNode(int?[] arr)
+    //     {
+    //         var queue = new Queue<TreeNode>(arr.Length);
+    //         queue.Enqueue(new TreeNode());
+    //         
+    //         foreach (var item in arr)
+    //         {
+    //             var node = queue.Dequeue();
+    //             node.val = item;
+    //             node.left = new TreeNode();
+    //             node.right = new TreeNode();
+    //             
+    //             queue.Enqueue(node.left);
+    //             queue.Enqueue(node.right);
+    //         }
+    //     }
+    // }
 
     
 
