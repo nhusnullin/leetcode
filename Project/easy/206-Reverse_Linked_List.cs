@@ -17,7 +17,26 @@ namespace Project.easy
             Assert.AreEqual(null, ReverseList(null));
         }
 
-        public ListNode ReverseList(ListNode head)
+        // 2021 06 19
+        // recursively
+        public ListNode ReverseList(ListNode head) {
+
+            if (head == null || head.next == null)
+            {
+                return head;
+            }
+
+            var newHead = ReverseList(head.next);
+
+            var next = head.next;
+            head.next = null;
+            next.next = head; 
+
+            return newHead;
+        }
+        
+        
+        public ListNode ReverseList_1(ListNode head)
         {
             if (head == null)
             {

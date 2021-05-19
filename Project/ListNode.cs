@@ -65,6 +65,7 @@ namespace Project
         public override string ToString()
         {
             return ToString(this, new StringBuilder()).ToString().Trim();
+            //return val.ToString();
         }
 
         private StringBuilder ToString(ListNode node, StringBuilder builder)
